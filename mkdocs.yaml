@@ -1,4 +1,4 @@
-site_name: template
+site_name: utility-collection
 theme:
   name: material
   palette:
@@ -15,9 +15,9 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - git-committers:
-      repository: liblaf/template
+      repository: liblaf/utility-collection
       branch: main
   - git-authors
-repo_url: https://github.com/liblaf/template
-repo_name: liblaf/template
+repo_url: https://github.com/liblaf/utility-collection
+repo_name: liblaf/utility-collection
 edit_uri: edit/main/docs
