@@ -17,7 +17,13 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.12"
+fire = "^0.4.0"
+requests = "^2.28.1"
+tqdm = "^4.64.1"
+
+[tool.poetry.group.deploy.dependencies]
+pyinstaller = "^5.6.1"
 
 [tool.poetry.group.docs.dependencies]
 lxml = "^4.9.1"
@@ -25,3 +31,6 @@ mkdocs-git-authors-plugin = "^0.6.4"
 mkdocs-git-committers-plugin-2 = "^1.1.1"
 mkdocs-git-revision-date-localized-plugin = "^1.1.0"
 mkdocs-material = "^8.5.7"
+
+[tool.poetry.scripts]
+build = "utility_collection.build:run"
