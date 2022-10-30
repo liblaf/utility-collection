@@ -26,8 +26,10 @@ jobs:
       - id: bumped
         run: |
           if [[ -n "$(cat body.md)" ]]; then
+            echo "bumped = true"
             echo "bumped=true" >> $GITHUB_OUTPUT
           else
+            echo "bumped = false"
             echo "bumped=false" >> $GITHUB_OUTPUT
           fi
       - if: ${{ steps.bumped.outputs.bumped }}
@@ -66,9 +68,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
       - run: git pull
-      - name: Build Artifacts
+      - id: detect
+        name: Detect Build Script
+        shell: bash
+        run: |
+          cat pyproject.toml | grep "build = \".*.build:run\""
+          if (( $? == 0 )); then
+            echo "build=true" >> $GITHUB_OUTPUT
+          else
+            echo "build=false" >> $GITHUB_OUTPUT
+          fi
+      - if: ${{ steps.detect.outputs.build }}
+        name: Build Artifacts
         uses: ./.github/actions/deploy
-      - name: Upload Artifacts
+      - if: ${{ steps.detect.outputs.build }}
+        name: Upload Artifacts
         uses: actions/upload-artifact@v3.1.1
         with:
           name: ${{ matrix.os }}
