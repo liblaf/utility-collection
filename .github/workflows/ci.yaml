@@ -7,7 +7,7 @@ on:
 
 jobs:
   cz:
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    if: ${{ github.repository != 'liblaf/template' }}
     outputs:
       bumped: ${{ steps.bumped.outputs.bumped }}
       version: ${{ steps.cz.outputs.version }}
@@ -32,7 +32,7 @@ jobs:
             echo "bumped = false"
             echo "bumped=false" >> $GITHUB_OUTPUT
           fi
-      - if: ${{ steps.bumped.outputs.bumped }}
+      - if: ${{ steps.bumped.outputs.bumped == 'true' }}
         name: Upload Changelog
         uses: actions/upload-artifact@v3.1.1
         with:
@@ -41,7 +41,7 @@ jobs:
 
   publish:
     needs: cz
-    if: ${{ needs.cz.outputs.bumped }}
+    if: ${{ needs.cz.outputs.bumped == 'true' }}
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +55,7 @@ jobs:
 
   deploy:
     needs: cz
-    if: ${{ needs.cz.outputs.bumped }}
+    if: ${{ needs.cz.outputs.bumped == 'true' }}
     continue-on-error: true
     strategy:
       matrix:
@@ -78,10 +78,10 @@ jobs:
           else
             echo "build=false" >> $GITHUB_OUTPUT
           fi
-      - if: ${{ steps.detect.outputs.build }}
+      - if: ${{ steps.detect.outputs.build == 'true' }}
         name: Build Artifacts
         uses: ./.github/actions/deploy
-      - if: ${{ steps.detect.outputs.build }}
+      - if: ${{ steps.detect.outputs.build == 'true' }}
         name: Upload Artifacts
         uses: actions/upload-artifact@v3.1.1
         with:
@@ -92,7 +92,7 @@ jobs:
     needs:
       - cz
       - deploy
-    if: ${{ needs.cz.outputs.bumped }}
+    if: ${{ needs.cz.outputs.bumped == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
