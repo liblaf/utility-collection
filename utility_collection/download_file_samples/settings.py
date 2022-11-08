@@ -1,6 +1,17 @@
 BASE_URL: str = "https://filesamples.com/samples/"
 
 SAMPLES: dict[str, dict[str, list[str]]] = {
+    "code": {
+        "c": ["sample1.c"],
+        "cpp": ["sample1.cpp"],
+        "h": ["sample1.h"],
+        "html": ["sample1.html"],
+        "js": ["sample1.js"],
+        "json": ["sample1.json"],
+        "py": ["sample1.py"],
+        "sh": ["sample1.sh"],
+        "yaml": ["sample.yaml"],
+    },
     "document": {
         "doc": ["sample1.doc"],
         "docx": ["sample1.docx"],
@@ -10,16 +21,15 @@ SAMPLES: dict[str, dict[str, list[str]]] = {
         "xls": ["sample1.xls"],
         "xlsx": ["sample1.xlsx"],
     },
+    "image": {
+        "gif": ["sample_1920×1080.gif"],
+        "heic": ["sample1.heic"],
+        "jpg": ["sample_1920×1280.jpg"],
+        "png": ["sample_1920×1280.png"],
+        "svg": ["sample_1920×1280.svg"],
+    },
     "video": {
-        "mp4": [
-            "sample_1280x720_surfing_with_audio.mp4",
-            "sample_1280x720.mp4",
-            "sample_1920x1080.mp4",
-            "sample_2560x1440.mp4",
-            "sample_3840x2160.mp4",
-            "sample_640x360.mp4",
-            "sample_960x400_ocean_with_audio.mp4",
-            "sample_960x540.mp4",
-        ]
+        "mov": ["sample_1280x720_surfing_with_audio.mov"],
+        "mp4": ["sample_1280x720_surfing_with_audio.mp4"],
     },
 }
