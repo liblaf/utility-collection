@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-if command -v rich >/dev/null 2>&1; then
+if command -v rich > /dev/null 2>&1; then
   function info() {
     rich --print "[bold bright_blue]${*}"
   }
@@ -22,7 +22,6 @@ function call() {
 
 REPO_HOME="$(realpath --canonicalize-missing "${0}/../..")"
 call cd "${REPO_HOME}"
-call sudo apt install libffi7
 call poetry run build
 mkdir --parents "${HOME}/.local/bin"
 call cp "${REPO_HOME}/dist/$(basename "${REPO_HOME}")" "${HOME}/.local/bin"
